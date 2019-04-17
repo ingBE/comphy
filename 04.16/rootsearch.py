@@ -28,8 +28,3 @@ def rootsearch(f,a=-100,b=100,dx=0.1):
 
 	x2 += dx
 	return ite,x1,x2
-
-def newtonRoot(F,a):
-	f, Df = F
-	for i in 
-
