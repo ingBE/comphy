@@ -5,26 +5,43 @@
 ##
 ##	Compare how many iterations are required for each method.
 
-from numpy import sign
+from numpy import sign, abs
 
-def rootsearch(f,a=-100,b=100,dx=0.1):
-	x1 = a; f1 = f(x1)
-	x2 = b; f2 = f(x2)
+def rootsearch0(f,a=-100,b=100,dx=0.1):
+    dx = abs(dx)
+    x1 = a; x2 = a+dx;
+    f1 = f(x1); f2 = f(x2)
 
-	ite = 0
-	while sign(f1) != sign(f2):
-		if x1 >= b:
-			return False
-		x1 += dx; f1 = f(x1)
-		ite += 1
+    ite = 0
+    while sign(f1) == sign(f2):
+        if (x1 >= b):
+            return False
+        x1 += dx; x2 += dx;
+        f1 = f(x1); f2 = f(x2)
+        ite += 1
+    return ite,x1,x2
 
-	x1 -= dx; f1 = f(x1)
-	while sign(f1) != sign(f2):
-		if x2 <= x1:
-			x2 += dx
-			return False
-		x2 -= dx; f2 = f(x2)
-		ite += 1
+def rootsearch1(f,a=-100,b=100,dx=0.1):
+    dx = abs(dx)
+    x1 = a; f1 = f(x1)
+    x2 = b; f2 = f(x2)
 
-	x2 += dx
-	return ite,x1,x2
+    ite = 0
+    while sign(f1) != sign(f2):
+        if (x1 >= b):
+            return False
+        x1 += dx; f1 = f(x1)
+        ite += 1
+
+    x1 -= dx; f1 = f(x1)
+    while sign(f1) != sign(f2):
+        if x2 <= x1:
+            x2 += dx
+            return False
+        x2 -= dx; f2 = f(x2)
+        ite += 1
+
+    x2 += dx
+    return ite,x1,x2
+
+f = lambda x:-x*x/4+1
