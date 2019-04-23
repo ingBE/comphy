@@ -1,4 +1,3 @@
-## copy from comphy2019 github
 ## module error
 ''' err(string).
 '''

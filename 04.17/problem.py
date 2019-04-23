@@ -25,7 +25,6 @@ x_3 = 4.12128529981127
 
 ## 2.
 ## newton-raphson algorithm
-##
 
 from bisection00 import bisection
 from newtonRaphson import newtonRaphson
