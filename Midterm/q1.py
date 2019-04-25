@@ -24,8 +24,8 @@ def stdDev(f,xData,yData):
 import numpy as np
 from sineFit import sineFit, sineCoef, f
 
-xsol = [np.pi/5,1,0]
 xsol = [0.63,10,10]
+xsol = [0.627,2,3]
 coef = sineCoef(data[0],data[1])(xsol)
 x = np.linspace(min(data[0]),max(data[0]),1000)
 y = mapli(sineFit(coef),x)

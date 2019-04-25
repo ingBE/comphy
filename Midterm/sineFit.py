@@ -58,14 +58,7 @@ g = sineCoef(data[0],data[1])
 
 print(g([1,1,1]))
 
-
 root = [0.5,1,1]
-root = sineCoef(data[0],data[1])(root)
-root = sineCoef(data[0],data[1])(root)
-root = sineCoef(data[0],data[1])(root)
-root = sineCoef(data[0],data[1])(root)
-root = sineCoef(data[0],data[1])(root)
-root = sineCoef(data[0],data[1])(root)
 root = sineCoef(data[0],data[1])(root)
 print(root)
 print(sineFit(root)(np.pi/2/root[0]))
