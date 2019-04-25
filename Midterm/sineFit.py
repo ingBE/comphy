@@ -1,10 +1,13 @@
 '''
+Fitting sine graph form
 f(x;a,b,omega) = a*sin(omega*x) + b*cos(omega*x)
 '''
 
 import numpy as np
 
-#def sineFit(xData,yData):
+## sineFit :: coef -> (x -> a*sin(omega*x)+b*cos(omega*x))
+sineFit = lambda coef:\
+        lambda x:coef[1]*np.sin(coef[0]*x)+coef[2]*np.cos(coef[0]*x)
 
 ## Using module newtonRaphson2 from comphy2019 github
 from newtonRaphson2 import newtonRaphson2
@@ -33,6 +36,11 @@ def f(xData,yData):
         return aa
     return aa
 
+## sineCoef :: (xData, yData) -> ((xsol = initial x value) -> coefficients)
+sineCoef = lambda xData, yData:\
+        lambda xsol:newtonRaphson2(f(xData,yData),xsol)
+'''
+####################  TEST  #########################
 mapli = lambda f,x:list(map(f,x))
 
 def readData( dataName ):
@@ -46,8 +54,19 @@ def readData( dataName ):
 dataName = ['xdata.dat','ydata1.dat','ydata2.dat']
 data = mapli( readData, dataName )
 
-g = f(data[0],data[1])
+g = sineCoef(data[0],data[1])
 
-x = [np.pi/5,1,0]
-root = newtonRaphson2(f(data[0],data[1]),x)
-print(g(x),g(root),root)
+print(g([1,1,1]))
+
+
+root = [0.5,1,1]
+root = sineCoef(data[0],data[1])(root)
+root = sineCoef(data[0],data[1])(root)
+root = sineCoef(data[0],data[1])(root)
+root = sineCoef(data[0],data[1])(root)
+root = sineCoef(data[0],data[1])(root)
+root = sineCoef(data[0],data[1])(root)
+root = sineCoef(data[0],data[1])(root)
+print(root)
+print(sineFit(root)(np.pi/2/root[0]))
+'''
