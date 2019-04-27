@@ -1,0 +1,17 @@
+(a) M1 = 1 kg, M2 = 5 kg
+[ T1, T2, T3 ]  [45.240168, 36.947462, 28.957307]
+
+theta caculated from sin values
+[ theta1, theta2, theta3 ]  [1.069478, 0.94166, 0.7215]
+
+theta caculated from cos values
+[ theta1, theta2, theta3 ]  [1.069478, 0.94166, 0.7215]
+(b) M1 = 1 kg, M2 = 0 kg
+[ T1, T2, T3 ]  [9.8, 0.0, 0.0]
+
+theta caculated from sin values
+[ theta1, theta2, theta3 ]  [1.570796, 0.792559, 0.67807]
+
+theta caculated from cos values
+[ theta1, theta2, theta3 ]  [1.570796, 0.792559, 0.67807]
+[1.         0.71215198 0.62729119]
