@@ -69,6 +69,7 @@ T, sin, cos = unpack(solve)
 thetaSin = mapli(lambda x:np.arcsin(x),r(sin))
 thetaCos = mapli(lambda x:np.arccos(x),r(cos))
 
+print('')
 print('(b) M1 = 1 kg, M2 = 0 kg')
 print('[ T1, T2, T3 ] ',r(T))
 print('\ntheta caculated from sin values')
