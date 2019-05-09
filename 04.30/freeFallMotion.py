@@ -1,24 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-x = np.array([1.5,1.9,2.1,2.4,2.6,3.1])
-y = np.array([1.06,1.39,1.54,1.73,1.84,2.03])
-
-
 # We wnt to find the height versus time
 
 time = np.linspace(0,10,100)
 y0  = 10        # Ten meters high
 a   = -9.8      # Meters/sec^2
-
-var = []
-yar = []
-for i in range(len(time)) :
-
-    t = time[i]
-    var.append( v0 + a*t )
-    yar.append( y0 + v*t )
-
-    if y < 0 : v = -v
+v0  = 0
 
 
+var = [0.0]
+yar = [10.0]
+for i in range(len(time)-1) :
+
+    dt = time[i+1] - time[i]
+    var.append( var[i] + a*dt )
+    yar.append( yar[i] + var[i]*dt )
+
+    if yar[i+1] < 0 : var[i+1] = -var[i]
+
+plt.plot(time,yar,'-',time,var,'-')
+plt.legend(['position','velocity'])
+plt.grid()
+plt.savefig('freeFallMotion')
+plt.show()

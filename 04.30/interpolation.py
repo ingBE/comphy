@@ -67,6 +67,7 @@ for i in range(len(xar)):
 plt.plot(xData,yData,'o',xar,yar,'-',xar,dy,'-',xar,d2y,'-')
 plt.legend(['Input Data','Cubic Spline','diff','2nd diff'])
 plt.grid()
+plt.savefig('fig1')
 plt.show()
 
 from polyFit import *
