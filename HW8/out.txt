@@ -1,0 +1,37 @@
+
+            #### Problem 1. ####
+ 1) f(x,y) = (1 - x^2)(1 - y^2)
+ Gauss    Integral     1.777777777728277
+ Triangle Integral     1.6355555555555554
+
+ 2) f(x,y) = x^2 y^2
+ Gauss    Integral     23.999999999392585
+ Triangle Integral     23.520000000000014
+
+ 3) f(x,y) = exp(-(x^2+y^2))
+ Gauss    Integral     2.2310319079502987
+ Triangle Integral     2.005408235168953
+
+ 4) f(x,y) = cos(pi(x-y)/2
+ Gauss    Integral     1.6211391170197167
+ Triangle Integral     1.1209041432289477
+
+
+            #### Problem 2. ####
+ Gauss    Integral     13.333333332986866
+ Triangle Integral     13.333333333333336
+
+
+            #### Problem 3. ####
+ Gauss    Integral     13.499999999664036
+ Triangle Integral     13.5
+
+
+            #### Problem 4. ####
+ 1) f(x,y) = (2 - x^2)(2 - x*y)
+ Gauss    Integral     38.39999999906208
+ Triangle Integral     38.39999999999999
+
+ 2) f(x,y) = xy exp(-x^2)
+ Gauss    Integral     0.3952044648231357
+ Triangle Integral     -0.8070124608470459

@@ -86,7 +86,3 @@ xs = [0,1,1]; ys = [0,0,1]
 I = triangleQuad(func,xs,ys)
 print('Triangle Integral    ',I)
 
-########################################
-def intfun():
-    pass
-
