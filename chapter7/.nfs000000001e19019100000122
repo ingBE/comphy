@@ -31,7 +31,7 @@ def r(u):
     r = np.zeros(len(u))
     xs,ys = integrate(F,xStart,initCond(u),xStop,h)
     y = ys[len(ys) - 1]
-    r[0] = y[0] - 8000
+    r[0] = y[0] - 0.0
     r[1] = y[1] - 0.0
     return r
 
