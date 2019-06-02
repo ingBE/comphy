@@ -27,9 +27,9 @@ x.append(2*h)
 y0.append( y0[1] + y1[1]*h )
 y1.append( y1[1] + y1p(x[1],y0[1],y1[1])*h )
 
-#print('  x      y0     y1')
-#print(np.transpose([x,y0,y1]))
-
+print('  x      y0     y1')
+print(np.transpose([x,y0,y1]))
+print('\n-----------------------\n')
 ##
 from euler import *
 import matplotlib.pyplot as plt
@@ -49,8 +49,9 @@ h = 0.2
 X,Y = integrate(F,x,y,xStop,h)
 yExact = 100.0*X - 5.0*X**2 + 990.0*(np.exp(-0.1*X) - 1.0)
 
-print(X)
-print(Y[:,0])
+from printSoln import *
+freq = 2
+printSoln(X,Y,freq)
 
 # Plotting tool
 plt.plot(X,Y[:,0],'o',X,yExact,'-')

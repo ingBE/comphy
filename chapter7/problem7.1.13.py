@@ -22,17 +22,17 @@ h = 0.001
 x0 = [0,v0*np.cos(theta),0,v0*np.sin(theta)]
 t, x = integrate(F,0,x0,10,h)
 
+
 import matplotlib.pyplot as plt
+from printSoln import *
 
 xs = []; ys = []
 for i in range(len(t)):
     xs.append(x[i,0]); ys.append(x[i,2])
     if x[i,2] < 0.: break
         
-
-
 n = len(xs)-1
-print(t[n], xs[n], ys[n])
+#print(t[n], xs[n], ys[n])
 plt.plot(xs,ys,'-')
 plt.grid()
 plt.show()

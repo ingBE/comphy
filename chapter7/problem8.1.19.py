@@ -15,8 +15,8 @@ g = 9.80665 # m/s^2
 ## y2' = y3
 ## y3' = -(c/m)*v*y3 - g
 
-## y0(0) = 0.0, y1(0) = v*cos(theta), y2(0) = 0.0, y3(0) = v*sin(theta)
-## y0(10) = 8000, y1(10) = ?, y2(10) = ?, y3(10) = ?
+## x0(0) = 0.0, x1(0) = v*cos(theta), x2(0) = 0.0, x3(0) = v*sin(theta)
+## x0(10) = 8000, x1(10) = ?, x2(10) = 0, x3(10) = ?
 
 def F(t,x):
     F = np.zeros(4)
@@ -29,32 +29,44 @@ def F(t,x):
 
 def r(u):
     r = np.zeros(len(u))
-    xs,ys = integrate(F,xStart,initCond(u),xStop,h)
-    y = ys[len(ys) - 1]
-    r[0] = y[0] - 8000
-    r[1] = y[1] - 0.0
+    ts,xs = integrate(F,tStart,initCond(u),tStop,h)
+    y = xs[len(ts) - 1]
+    r[0] = y[0] - 8000  ## x(10) = 8000
+    r[1] = y[2] - 0.0   ## y(10) = 0
     return r
 
 initCond = lambda u: np.array([0.0,u[0],0.0,u[1]])
 
-from run_kut5 import *
-from ridder import *
-from printSoln import *
+from run_kut4 import *
+## Use newtonRaphson2 module for finding v0, theta
+from newtonRaphson2 import *
 
 tStart  = 0.0
-tStop   = 100
+tStop   = 10.0
 h       = 0.001
-freq    = 2
 
-v     = 300
+## Initial value for newtonRaphson2
+v0 = 50
 theta = np.pi/6
-u     = [v*np.cos(theta), v*np.sin(theta)]
+u     = [v0*np.cos(theta), v0*np.sin(theta)]
+
+## Consider initial value
+u     = newtonRaphson2(r,u)
 
 ts,xs = integrate(F,tStart,initCond(u),tStop,h)
-printSoln(ts,xs,freq)
 
-plt.plot(xs[:,0],xs[:,2],'o-')
-plt.xlim(0,8000)
-plt.ylim(0,1000)
+#from printSoln import *
+#printSoln(ts,xs,freq)
+
+## Write new txt file for save solution
+f = open('problem8.1.19.txt','w')
+f.write('u             '+str(u))
+f.write('\nv0            '+str((u[0]**2 + u[1]**2)**0.5))
+f.write('\ntheta         '+str(np.arctan(u[1]/u[0])))
+f.write('\nx(10)         '+str(xs[len(ts)-1,0]))
+f.write('\nr(u)          '+str(r(u)))
+f.close()
+
+plt.plot(xs[:,0],xs[:,2],'-')
 plt.grid()
-plt.show()
+plt.savefig('problem8.1.19.png')

@@ -1,7 +1,7 @@
 ## module euler
 '''X,Y = integrate(F,x,y,xStop,h).
     Euler's method for solving the
-    initial value problem {y}’ = {F(x,{y})}, where
+    initial value problem {y}' = {F(x,{y})}, where
     {y} = {y[0],y[1],...y[n-1]}.
     x,y = initial conditions
     xStop = terminal value of x
