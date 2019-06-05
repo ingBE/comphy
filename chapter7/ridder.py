@@ -1,6 +1,6 @@
 ## module ridder
 ''' root = ridder(f,a,b,tol=1.0e-9).
-    Finds a root of f(x) = 0 with Ridder’s method.
+    Finds a root of f(x) = 0 with Ridder's method.
     The root must be bracketed in (a,b).
 '''
 #import error
@@ -13,7 +13,7 @@ def ridder(f,a,b,tol=1.0e-9):
     if fb == 0.0: return b
     if sign(fa)!= sign(fb): x1 = a; f1 = fa
     for i in range(30):
-      # Compute the improved root x from Ridder’s formula
+      # Compute the improved root x from Ridder's formula
         c = 0.5*(a + b); fc = f(c)
         s = math.sqrt(fc**2 - fa*fb)
         if s == 0.0: return None

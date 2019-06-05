@@ -1,13 +1,13 @@
 ## module run_kut4
 """ X,Y = integrate(F,x,y,xStop,h).
 4th-order Runge-Kutta method for solving the
-initial value problem {y}’ = {F(x,{y})}, where
+initial value problem {y}' = {F(x,{y})}, where
 {y} = {y[0],y[1],...y[n-1]}.
 x,y = initial conditions
 xStop = terminal value of x
 h = increment of x used in integration
 F = user-supplied function that returns the
-array F(x,y) = {y’[0],y’[1],...,y’[n-1]}.
+array F(x,y) = {y'[0],y'[1],...,y'[n-1]}.
 """
 import numpy as np
 def integrate(F,x,y,xStop,h):
