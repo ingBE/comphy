@@ -28,6 +28,9 @@ def integrate(F,tStart,x_init,tStop,h):
     n = len(x_init)
     t = tStart
     x = x_init
+    E = energy(x)
+    Es = []
+    Es.append(E)
     ts = []
     ts.append(t)
     xs = []
@@ -37,6 +40,8 @@ def integrate(F,tStart,x_init,tStop,h):
     while t < tStop:
         # collision test
         for i in range(n):
+            if x[i][0] < -2 or x[i][0] > 2: x[i][1] = -x[i][1]
+            if x[i][2] < -2 or x[i][2] > 2: x[i][3] = -x[i][3]
             for j in range(i+1,n):
                 if distance(x[i],x[j]) < d:
                     print('collision',i,j,' --- ',t)
@@ -44,11 +49,13 @@ def integrate(F,tStart,x_init,tStop,h):
         for i in range(n):
             x[i] = x[i] + dx(F,t,x[i],h)
             xs[i].append(x[i])
+        E = energy(x)
+        Es.append(E)
         t = t + h
         ts.append(t)
     for i in range(n):
         xs[i] = np.array(xs[i])
-    return np.array(ts),xs
+    return np.array(ts),xs,np.array(Es)
 
 ### 1-D collision
 #def collision(p1,p2):
@@ -74,35 +81,55 @@ def collision(p1,p2,e):
     return 0
 
 e = 1.0 # elastic collision
-d = 1.0e-03
+d = 5.0e-02
 h = 0.01
+n = 10
+
+def energy(x):
+    E_tot = 0
+    for i in range(len(x)):
+        E_tot = E_tot + (x[i][1]**2 + x[i][3]**2)/2
+    return E_tot
 
 p = lambda p1,p2: [p1[1]+p2[1],p1[3]+p2[3]]
 v = lambda p:[p[1],p[3]]
 
-x0 = np.array([-4,5,-3,3])
-x1 = np.array([2,-1,-2,2])
+#x0 = np.array([-4,5,-3,3])
+#x1 = np.array([2,-1,-2,2])
 
 #x0 = np.array([1,-1,0,0])
 #x1 = np.array([-2,2,0,0])
 
-print(v(x0),v(x1),p(x0,x1))
+#print(v(x0),v(x1),p(x0,x1))
 
-x_init = [x0,x1]
+#x_init = [x0,x1]
 
-ts, xs = integrate(F,0.0,x_init,2.0,h)
+from random import random
+x_init = []
+for i in range(n):
+    x_init.append(np.array([(random()-0.5)*4,(random()-0.5)*4,(random()-0.5)*4,(random()-0.5)*4]))
 
-x0=xs[0][len(ts)-1,:]
-x1=xs[1][len(ts)-1,:]
-print(v(x0),v(x1),p(x0,x1))
+ts, xs, Es = integrate(F,0.0,x_init,10.0,h)
+
+#x0=xs[0][len(ts)-1,:]
+#x1=xs[1][len(ts)-1,:]
+#print(v(x0),v(x1),p(x0,x1))
+
+print('initial energy', Es[0])
+print('final energy  ', Es[len(ts)-1])
 
 ## plot
 legend = []
 for i in range(len(xs)):
     plt.plot(xs[i][:,0],xs[i][:,2],'-')
-    legend.append('particle '+str(i))
+    if range(len(xs)<6): legend.append('particle '+str(i))
 
 plt.legend(legend)
+
+plt.grid()
+plt.show()
+
+plt.plot(ts,Es,'-')
 
 #plt.plot(ts,xs[1][:,0],'-',ts,xs[3][:,0],'-')
 plt.grid()

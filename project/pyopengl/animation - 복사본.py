@@ -9,11 +9,18 @@ def drawSphere(x,y,z):
     glutSolidSphere(0.25,10,10)
     glTranslatef(-x,-y,-z)
 
+x = -3.0
+i = 0
 def renderScene():
-    global angle
+    global angle, x, i
+    i = i+1
+    print(i)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glPushMatrix()
 
+    glColor3f(1,1,1)
+    drawSphere(x,0,0)
+    x = x+0.01
 
     glColor3f(0,1,0)
     drawSphere(2,2,0)
