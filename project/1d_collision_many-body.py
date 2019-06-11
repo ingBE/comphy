@@ -17,7 +17,7 @@ def F(t,x):
 	F[3] = g
 	return F
 
-# 2-body problem
+## using runge-kutta method
 def integrate(F,tStart,x_init,tStop,h):
     def dx(F,t,x,h):
         k0 = h*F(t,x)
@@ -39,7 +39,6 @@ def integrate(F,tStart,x_init,tStop,h):
         for i in range(n):
             for j in range(i+1,n):
                 if distance(x[i],x[j]) < d:
-                    print('collision',i,j,' --- ',t)
                     temp = x[i][1]; x[i][1] = x[j][1]; x[j][1] = temp
         for i in range(n):
             x[i] = x[i] + dx(F,t,x[i],h)
@@ -58,7 +57,6 @@ x1 = np.array([-1 ,2   ,9.8,0.0])
 x2 = np.array([0.5,-1  ,9.8,0.0])
 x3 = np.array([6.4599999999,-5  ,2.499,4.9])
 x_init = [x0,x1,x2,x3]
-#x_init = [x0,x1,x2]
 
 ts, xs = integrate(F,0.0,x_init,2.0,h)
 
@@ -69,6 +67,5 @@ for i in range(len(xs)):
 
 plt.legend(legend)
 
-#plt.plot(ts,xs[1][:,0],'-',ts,xs[3][:,0],'-')
 plt.grid()
 plt.show()

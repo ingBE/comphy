@@ -14,8 +14,6 @@ def F(t,x):
 	F[3] = g
 	return F
 
-#from run_kut4 import *
-
 # 2-body problem
 def integrate(F,tStart,x0,tStop,h):
     def dx(F,t,x,h):
@@ -57,4 +55,4 @@ ts, xs = integrate(F,0.0,x0,2.0,h)
 plt.plot(xs[0][:,0],xs[0][:,2],'-',xs[1][:,0],xs[1][:,2],'-')
 plt.legend(['particle 1','particle 2'])
 plt.grid()
-plt.show()
+plt.savefig('2-body.png')

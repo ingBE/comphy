@@ -39,7 +39,6 @@ def integrate(F,tStart,x_init,tStop,h):
         for i in range(n):
             for j in range(i+1,n):
                 if distance(x[i],x[j]) < d:
-                    print('collision',i,j,' --- ',t)
                     temp = x[i][1]; x[i][1] = x[j][1]; x[j][1] = temp
         for i in range(n):
             x[i] = x[i] + dx(F,t,x[i],h)

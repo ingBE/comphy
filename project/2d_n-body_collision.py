@@ -9,7 +9,6 @@ distance = lambda x1,x2:((x1[0]-x2[0])**2+(x1[2]-x2[2])**2)**0.5
 ## x 	= [ x, x', y, y']
 ## F = dx/dt = [ v_x, a_x, v_y, a_y ]
 def F(t,x):
-	g = -9.8 # m/sec^2
 	F = np.zeros(4)
 	F[0] = x[1]
 	F[1] = 0
@@ -44,7 +43,6 @@ def integrate(F,tStart,x_init,tStop,h):
             if x[i][2] < -2 or x[i][2] > 2: x[i][3] = -x[i][3]
             for j in range(i+1,n):
                 if distance(x[i],x[j]) < d:
-                    print('collision',i,j,' --- ',t)
                     collision(x[i],x[j],e)
         for i in range(n):
             x[i] = x[i] + dx(F,t,x[i],h)
@@ -56,11 +54,6 @@ def integrate(F,tStart,x_init,tStop,h):
     for i in range(n):
         xs[i] = np.array(xs[i])
     return np.array(ts),xs,np.array(Es)
-
-### 1-D collision
-#def collision(p1,p2):
-#    temp = p1[1]; p1[1] = p2[1]; p2[1] = temp
-#    return 0
 
 ## 2-D collision
 ## e is coefficient of restitution
@@ -81,56 +74,45 @@ def collision(p1,p2,e):
     return 0
 
 e = 1.0 # elastic collision
-d = 5.0e-02
-h = 0.01
-n = 10
+d = 5.0e-02 # (radius * 2) of particle
+h = 0.01    # time interval
+n = 10  # count of particles
 
+## Calculate total Kinetic Energy
 def energy(x):
     E_tot = 0
     for i in range(len(x)):
         E_tot = E_tot + (x[i][1]**2 + x[i][3]**2)/2
     return E_tot
 
-p = lambda p1,p2: [p1[1]+p2[1],p1[3]+p2[3]]
-v = lambda p:[p[1],p[3]]
-
-#x0 = np.array([-4,5,-3,3])
-#x1 = np.array([2,-1,-2,2])
-
-#x0 = np.array([1,-1,0,0])
-#x1 = np.array([-2,2,0,0])
-
-#print(v(x0),v(x1),p(x0,x1))
-
-#x_init = [x0,x1]
-
+## Initial condition of particles
 from random import random
 x_init = []
 for i in range(n):
     x_init.append(np.array([(random()-0.5)*4,(random()-0.5)*4,(random()-0.5)*4,(random()-0.5)*4]))
 
-ts, xs, Es = integrate(F,0.0,x_init,10.0,h)
+## Plot Energy graph
+## e = 1.0, 0.75, 0.5, 0.25
+legend = []
+for i in [1,0.75,0.5,0.25]:
+    e = i
+    legend.append('e = '+str(e))
+    x = x_init.copy()
+    ts, xs, Es = integrate(F,0.0,x,100.0,h)
+    plt.plot(ts,Es,'-')
 
-#x0=xs[0][len(ts)-1,:]
-#x1=xs[1][len(ts)-1,:]
-#print(v(x0),v(x1),p(x0,x1))
+plt.legend(legend)
+plt.grid()
+plt.savefig('n-body_energy.png')
+plt.close()
 
-print('initial energy', Es[0])
-print('final energy  ', Es[len(ts)-1])
-
-## plot
+## Plot orbitals of particles graph
+## Elastic collision, e = 1
 legend = []
 for i in range(len(xs)):
     plt.plot(xs[i][:,0],xs[i][:,2],'-')
     if range(len(xs)<6): legend.append('particle '+str(i))
 
 plt.legend(legend)
-
 plt.grid()
-plt.show()
-
-plt.plot(ts,Es,'-')
-
-#plt.plot(ts,xs[1][:,0],'-',ts,xs[3][:,0],'-')
-plt.grid()
-plt.show()
+plt.savefig('n-body_orbit.png')
